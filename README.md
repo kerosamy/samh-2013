@@ -2,5 +2,6 @@
 3ala allah
 
 kerooooo
+ya rb
 الجهل وحش 
 
