@@ -7,7 +7,7 @@
 #define blue  "\033[1;34m"
 #define white  "\033[1;37m"
 #define rest  "\033[1;0m"
-#include"start.c"
+#include"start.h"
 int menu1(){
 char menu ; 
 
