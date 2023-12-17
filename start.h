@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include "2x2game.h"
 #define red  "\033[1;31m"
 #define black  "\033[1;30m"
 #define green  "\033[1;32m"
@@ -18,7 +19,7 @@ scanf("%i",&j);
 switch (j)
 {
 case 1:
-   
+   maingame();
    break;
 case 2:
    
@@ -42,7 +43,7 @@ printf(green"1-beginner 2x2 \n"rest red"2-expert 5x5\n"rest white"your game will
 scanf("%i",&i);
 
 switch (i)
-{
+{ 
 case 1 :
    
    select2(i);

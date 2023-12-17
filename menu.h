@@ -8,10 +8,13 @@
 #define white  "\033[1;37m"
 #define rest  "\033[1;0m"
 #include"start.h"
+
 int menu1(){
 char menu ; 
+int sin = 1;
 
-printf(yellow"Welcome to Dots and Boxes game \n"rest green"Start game \n"rest cyan"Load game \n"rest blue"Top 10 players \n"rest red"Exit \n"rest white"please choose :"rest);
+
+    printf(yellow"Welcome to Dots and Boxes game \n"rest green"Start game \n"rest cyan"Load game \n"rest blue"Top 10 players \n"rest red"Exit \n"rest white"please choose :"rest);
 scanf("%c",&menu);
 switch (menu)
 {
@@ -33,3 +36,7 @@ default:
     break;
 }
 }
+
+
+    
+
