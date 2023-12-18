@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include "color.h"
 #define row 5
 #define col 5
 

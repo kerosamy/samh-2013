@@ -1,33 +1,28 @@
 #include<stdio.h>
-#define red  "\033[1;31m"
-#define black  "\033[1;30m"
-#define green  "\033[1;32m"
-#define yellow  "\033[1;33m"
-#define cyan "\033[1;36m"
-#define blue  "\033[1;34m"
-#define white  "\033[1;37m"
-#define rest  "\033[1;0m"
+#include "color.h"
 #include"start.h"
 
 int menu1(){
-char menu ; 
-int sin = 1;
+int menu ; 
+int sin =1;
 
-
-    printf(yellow"Welcome to Dots and Boxes game \n"rest green"Start game \n"rest cyan"Load game \n"rest blue"Top 10 players \n"rest red"Exit \n"rest white"please choose :"rest);
-scanf("%c",&menu);
+while (sin==1)
+{
+   printf(yellow"Welcome to Dots and Boxes game \n"rest green"1-Start game \n"rest cyan"2-Load game \n"rest blue"3-Top 10 players \n"rest red"4-Exit \n"rest white"please choose :"rest);
+scanf("%i",&menu);
 switch (menu)
 {
-case 's':
+case 1 :
     select1();
     break;
-case 'l':
+case 2:
 
     break;
-case 't':
+case 3 :
 
     break;
-case 'e':
+case 4 :
+    sin = 0;
     return 0 ;
     break;
 default:
@@ -35,6 +30,9 @@ default:
     menu1();
     break;
 }
+}
+
+   
 }
 
 
