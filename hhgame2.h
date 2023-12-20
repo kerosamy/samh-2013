@@ -1,18 +1,35 @@
 #include <stdio.h>
 #include "color.h"
-#define row 5
-#define col 5
+#include <time.h>
+int dash = 196;int dash1 = 195;int dash2 = 197;int slash1 = 123;int slash2 = 125;
 
+int row ,col ;
 void displayboard(char board[row][col]){
+    
     printf("  ");
     for (int i=0;i<col;i++) {
+        if (i<10)
+        {
         printf(black"%d "rest,i);
+        }
+        else
+        {
+            printf(black"%d "rest,i);
+        }
     }
     printf("\n");
     for (int i=0;i<row;i++) {
-        printf(black"%d "rest ,i);
+        if (i<10)
+        {
+             printf(black"%d "rest ,i);
+        }
+        else
+        {
+            printf(black"%d"rest ,i);
+        }
+        
         for (int j=0;j<col;j++) {
-            if (board[i][j]=='.')
+            if (board[i][j]== '.')
             {
                 printf(white"%c "rest ,board[i][j]);
             }
@@ -27,6 +44,14 @@ void displayboard(char board[row][col]){
             else if (board[i][j]=='c')
             {
                 printf(yellow"%c "rest ,board[i][j]);
+            }
+            else if (board[i][j]== (char) dash1 || board[i][j]== (char) slash1)
+            {
+                printf(yellow"%c "rest ,board[i][j]+1);
+            }
+            else if (board[i][j]== (char) dash2 || board[i][j]== (char) slash2)
+            {
+                printf(blue"%c "rest ,board[i][j]-1);
             }
             else{
             printf("%c ",board[i][j]);
@@ -46,22 +71,31 @@ int valid_move(char board[row][col],int r,int c) {
 
     return 0; //invalid move
 }
-void makemove(char board[][col],int r,int c,int movetype) {
+void makemove(char board[row][col],int r,int c,int movetype,int player) {
+    if(player==1){
     if (movetype==1) { //horizontal line
-        board[r][c] = '-';
+        board[r][c] = dash1;
     } else if (movetype == 2) { //vertical line
-        board[r][c] = '|';
+        board[r][c] = slash1;
+    }
+    }
+    else 
+    {
+       if (movetype==1) { //horizontal line
+        board[r][c] = dash2;
+    } else if (movetype == 2) { //vertical line
+        board[r][c] = slash2;
+    }
     }
 }
 int comp_squer (char board[row][col],int player,int arr[]){
     char winer ;
    
-    
 for (int i = 1; i < row; i=i+2)
 {
     for (int j = 1; j < col; j=j+2)
     {
-        if ((board[i][j-1]=='|')&& (board[i][j+1]=='|')&&(board[i-1][j]=='-')&&(board[i+1][j]=='-')&&(board[i][j]=='a'))
+        if ((board[i][j-1]!=' ')&& (board[i][j+1]!=' ')&&(board[i-1][j]!=' ')&&(board[i+1][j]!= ' ')&&(board[i][j]=='a'))
         {
 
           if (player==1)
@@ -91,16 +125,14 @@ return 1;
 
 
 }
-int maingame() {
+int maingame(int roow , int cool) {
+   row=roow*2 +1;
+   col=cool*2 +1;
+   
+    
+
     int score[3]={0,0,0};
-    char abc [(col/2)*2];
-    int k =0;
-    for (int i = 0; i <=(col/2)*2 ; i++)//creat characters for emty squars
-    {   
-        
-        
-        abc[i]= 'a';
-    }
+    
     
 
     char board[row][col];
@@ -111,8 +143,8 @@ int maingame() {
                 }
                 else if (i%2!=0 && j%2!=0)
                 {
-                    board[i][j]=abc[k];
-                    k++;
+                    board[i][j]='a';
+                    
                 }
                 else{
                 board[i][j] = ' ';}}}
@@ -121,8 +153,8 @@ int maingame() {
     int currentPlayer=1;
     int moves=0;
 
-    while (moves !=12) {
-        printf(yellow"player 1 score : %d\n"rest blue"player 2 score : %d\n"rest ,score[1],score[2]);
+    while (moves !=roow*(cool+1)+cool*(roow+1)) {
+        printf(yellow"player 1 score : %d\t"rest blue"player 2 score : %d\n"rest ,score[1],score[2]);
         if (currentPlayer == 1)
         {
             printf(yellow"Player %d's turn:\n"rest , currentPlayer);
@@ -133,17 +165,17 @@ int maingame() {
         }
 
         int r,c;
-      
+        printf(red"for exit (-1,-1)\n"rest);
         printf(white"Enter row and column to place a line: "rest);
         scanf("%d %d", &r,&c);
-        if (r== 5 && c==5)
+        if (r== -1 && c== -1)
         {
             return 0 ;
         }
         
         int movetype = valid_move(board,r,c);
         if (movetype!=0) {
-            makemove(board,r,c,movetype);
+            makemove(board,r,c,movetype,currentPlayer);
            int play_agin = comp_squer(board,currentPlayer,score);
             if (play_agin==1)
             {
@@ -160,7 +192,7 @@ int maingame() {
     }
     if (score[1]>score[2])
     {
-       printf(blue"Player 1 is the winner with score %i\n"rest  ,score[1]);
+       printf(blue"Player 1 is the winner with score %i \n"rest  ,score[1]);
     }
     else if (score[1]<score[2])
     {
