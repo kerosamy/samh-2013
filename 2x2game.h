@@ -6,13 +6,31 @@
 void displayboard(char board[row][col]){
     printf("  ");
     for (int i=0;i<col;i++) {
-        printf("%d ",i);
+        printf(black"%d "rest,i);
     }
     printf("\n");
     for (int i=0;i<row;i++) {
-        printf("%d ",i);
+        printf(black"%d "rest ,i);
         for (int j=0;j<col;j++) {
+            if (board[i][j]=='.')
+            {
+                printf(white"%c "rest ,board[i][j]);
+            }
+            else if (board[i][j]=='a')
+            {
+                printf(green"%c "rest ,board[i][j]);
+            }
+            else if (board[i][j]=='k')
+            {
+                 printf(blue"%c "rest ,board[i][j]);
+            }
+            else if (board[i][j]=='c')
+            {
+                printf(yellow"%c "rest ,board[i][j]);
+            }
+            else{
             printf("%c ",board[i][j]);
+            }
         }
         printf("\n");}}
 int valid_move(char board[row][col],int r,int c) {
@@ -35,15 +53,10 @@ void makemove(char board[][col],int r,int c,int movetype) {
         board[r][c] = '|';
     }
 }
-void comp_squer (char board[row][col],int player,int arr[]){
+int comp_squer (char board[row][col],int player,int arr[]){
     char winer ;
    
-    if (player==1)
-    {
-        winer='c';
-        
-    }
-    else{ winer = 'k'; }
+    
 for (int i = 1; i < row; i=i+2)
 {
     for (int j = 1; j < col; j=j+2)
@@ -53,12 +66,16 @@ for (int i = 1; i < row; i=i+2)
 
           if (player==1)
          {
-            winer='c';
+           board[i][j]='c';
             arr[1]++;
+            comp_squer(board,player,arr);
+            return 0;
          }
          else{
-             winer = 'k';
+            board[i][j] = 'k';
              arr[2]++; 
+             comp_squer(board,player,arr);
+             return 0;
              }
 
 
@@ -69,6 +86,10 @@ for (int i = 1; i < row; i=i+2)
     }
     
 }
+
+return 1;
+
+
 }
 int maingame() {
     int score[3]={0,0,0};
@@ -101,12 +122,19 @@ int maingame() {
     int moves=0;
 
     while (moves !=12) {
-        printf("player 1 score : %d\nplayer 2 score : %d\n",score[1],score[2]);
-        printf("Player %d's turn:\n", currentPlayer);
+        printf(yellow"player 1 score : %d\n"rest blue"player 2 score : %d\n"rest ,score[1],score[2]);
+        if (currentPlayer == 1)
+        {
+            printf(yellow"Player %d's turn:\n"rest , currentPlayer);
+        }
+        else
+        {
+             printf(blue"Player %d's turn:\n"rest , currentPlayer);
+        }
 
         int r,c;
       
-        printf("Enter row and column to place a line: ");
+        printf(white"Enter row and column to place a line: "rest);
         scanf("%d %d", &r,&c);
         if (r== 5 && c==5)
         {
@@ -116,13 +144,37 @@ int maingame() {
         int movetype = valid_move(board,r,c);
         if (movetype!=0) {
             makemove(board,r,c,movetype);
-            comp_squer(board,currentPlayer,score);
+           int play_agin = comp_squer(board,currentPlayer,score);
+            if (play_agin==1)
+            {
+                currentPlayer=(currentPlayer==1)?2:1; // Switch to the next player
+            }
+            
+           
             displayboard(board);
             moves++;
-            currentPlayer=(currentPlayer==1)?2:1; // Switch to the next player
+            
         } else {
             printf("Invalid move! Try again.\n");
         }
     }
+    if (score[1]>score[2])
+    {
+       printf(blue"Player 1 is the winner with score %i\n"rest  ,score[1]);
+    }
+    else if (score[1]<score[2])
+    {
+         printf(blue"Player 2 is the winner with score %i\n"rest ,score[2]);
+    }
+    else
+    {
+        printf("The game is equal\n");
+    }
+    char winnerr[50];
+    printf(white"The winner name in :"white);
+    scanf("%s",&winnerr);
     return 0;
+
 }
+
+
