@@ -1,5 +1,4 @@
 #include<stdio.h>
-
 int comp_squer (char board[arrsize[0]][arrsize[1]],int player,int arr[]){
    int row =arrsize[0]; int col = arrsize[1];
    

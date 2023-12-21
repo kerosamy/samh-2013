@@ -4,6 +4,7 @@
 #include "board.h"
 #include "compelet_squar.h"
 #include "winner.h"
+#include "redo.h"
 int row ,col ;
 int valid_move(char board[row][col],int r,int c) {
     if (r<0 || r>=row || c<0 || c>=col || (r%2==0 && c%2==0)){
@@ -42,6 +43,7 @@ int maingame(int roow , int cool) {
    row=roow*2 +1;
    col=cool*2 +1;
    scan(row,col);
+   scan2(row,col);
     int score[3]={0,0,0};
     char board[row][col];
     for (int i=0;i<row;i++){

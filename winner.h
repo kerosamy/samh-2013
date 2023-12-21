@@ -2,6 +2,7 @@
 #include "color.h"
 void winner (int score []){
 char winnerr[50];
+
 if (score[1]>score[2])
     {
        printf(yellow"Player 1 is the winner with score %i \n"rest  ,score[1]);
