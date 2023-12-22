@@ -1,25 +1,14 @@
 #include <stdio.h>
 #include "color.h"
 #include <time.h>
+#include "stdlib.h"
 #include "board.h"
 #include "compelet_squar.h"
 #include "winner.h"
 #include "redo.h"
+#include "valid.h"
 int row ,col ;
-int valid_move(char board[row][col],int r,int c) {
-    if (r<0 || r>=row || c<0 || c>=col || (r%2==0 && c%2==0)){
-        return 0; // invalid move
-    }
-
-    if (r%2==0 && c%2!=0 && board[r][c]==' ') {
-        return 1; //valid horizontal
-    } else if (r%2!=0 && c%2==0 && board[r][c]==' ') {
-        return 2; //valid vertical
-    }
-
-    return 0; //invalid move
-}
-void makemove(char board[row][col],int r,int c,int movetype,int player) {
+void makemove(char **board,int r,int c,int movetype,int player) {
     if(player==1){
     if (movetype==1) { //horizontal line
         board[r][c] = dash1;
@@ -42,10 +31,13 @@ int maingame(int roow , int cool) {
     int minutes, seconds;
    row=roow*2 +1;
    col=cool*2 +1;
-   scan(row,col);
-   scan2(row,col);
     int score[3]={0,0,0};
-    char board[row][col];
+    char **board;
+    board=(char**)malloc(row*sizeof(int*));
+    for (int i = 0; i < row; i++)
+   {
+   board[i]=(char*)malloc(col*sizeof(int));
+   }
     for (int i=0;i<row;i++){
         for (int j=0;j<col;j++){
             if ((i%2==0)&&(j%2==0)){
@@ -87,10 +79,10 @@ int maingame(int roow , int cool) {
             return 0 ;
         }
         
-        int movetype = valid_move(board,r,c);
+        int movetype = valid_move(board,r,c,row,col);
         if (movetype!=0) {
             makemove(board,r,c,movetype,currentPlayer);
-           int play_agin = comp_squer(board,currentPlayer,score);
+           int play_agin = comp_squer(board,currentPlayer,score,row,col);
             if (play_agin==1)
             {
                 currentPlayer=(currentPlayer==1)?2:1; // Switch to the next player
@@ -111,6 +103,11 @@ int maingame(int roow , int cool) {
     minutes = (int)(cpu_time_used / 60);
     seconds = (int)(cpu_time_used) % 60;
     printf(green"Total time taken: %d minutes %d seconds\n"rest, minutes, seconds);
+    for (int i = 0; i < row; i++)
+    {
+        free(board[i]);
+    }
+    free(board);
     return 0;
 }
 

@@ -1,6 +1,6 @@
 #include<stdio.h>
-int comp_squer (char board[arrsize[0]][arrsize[1]],int player,int arr[]){
-   int row =arrsize[0]; int col = arrsize[1];
+int comp_squer (char **board,int player,int arr[],int row,int col){
+   
    
 for (int i = 1; i < row; i=i+2)
 {
@@ -13,13 +13,13 @@ for (int i = 1; i < row; i=i+2)
          {
            board[i][j]='c';
             arr[1]++;
-            comp_squer(board,player,arr);
+            comp_squer(board,player,arr,row,col);
             return 0;
          }
          else{
             board[i][j] = 'k';
              arr[2]++; 
-             comp_squer(board,player,arr);
+             comp_squer(board,player,arr,row,col);
              return 0;
              }
            

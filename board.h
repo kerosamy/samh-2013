@@ -1,13 +1,10 @@
 #include<stdio.h>
 #include "color.h"
 int dash = 196;int dash1 = 195;int dash2 = 197;int slash1 = 123;int slash2 = 125;
-int arrsize[2];
-void scan(int roow,int cool){
-arrsize[0]=roow;
-arrsize[1]=cool;
-}
-void displayboard(char board[arrsize[0]][arrsize[0]],int row ,int col){
-    
+
+
+
+void displayboard(char **board,int row ,int col){
     printf("  ");
     for (int i=0;i<col;i++) {
         if (i<10)
