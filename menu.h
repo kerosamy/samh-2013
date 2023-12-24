@@ -5,11 +5,13 @@
 int menu1(){
 int menu ; 
 int sin =1;
+char star =4 ;
 
 while (sin==1)
 {
-   printf(yellow"Welcome to Dots and Boxes game \n"rest green"1-Start game \n"rest cyan"2-Load game \n"rest blue"3-Top 10 players \n"rest red"4-Exit \n"rest white"please choose :"rest);
+   printf(yellow"Welcome to Dots and Boxes game \n" rest green"1-Start game \n"rest cyan"2-Load game \n"rest blue"3-Top 10 players \n"rest red"4-Exit \n"rest white"please choose :"rest);
 scanf("%i",&menu);
+printf("\033[2J\033[1;1H");
 switch (menu)
 {
 case 1 :

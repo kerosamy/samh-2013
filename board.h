@@ -1,11 +1,8 @@
 #include<stdio.h>
 #include "color.h"
-int dash = 196;int dash1 = 195;int dash2 = 197;int slash1 = 123;int slash2 = 125;
-
-
-
 void displayboard(char **board,int row ,int col){
     printf("  ");
+    int dash = 196;int dash1 = 195;int dash2 = 197;int slash1 = 123;int slash2 = 125;
     for (int i=0;i<col;i++) {
         if (i<10)
         {
@@ -30,7 +27,7 @@ void displayboard(char **board,int row ,int col){
         for (int j=0;j<col;j++) {
             if (board[i][j]== '.')
             {
-                printf(white"%c "rest ,board[i][j]);
+                printf(BWHT"%c "rest ,board[i][j]);
             }
             else if (board[i][j]=='a')
             {

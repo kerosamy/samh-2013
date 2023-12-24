@@ -3,29 +3,16 @@
 #include <time.h>
 #include "stdlib.h"
 #include "board.h"
-#include "compelet_squar.h"
+#include "check_sq.h"
 #include "winner.h"
 #include "redo.h"
 #include "valid.h"
-int row ,col ;
-void makemove(char **board,int r,int c,int movetype,int player) {
-    if(player==1){
-    if (movetype==1) { //horizontal line
-        board[r][c] = dash1;
-    } else if (movetype == 2) { //vertical line
-        board[r][c] = slash1;
-    }
-    }
-    else 
-    {
-       if (movetype==1) { //horizontal line
-        board[r][c] = dash2;
-    } else if (movetype == 2) { //vertical line
-        board[r][c] = slash2;
-    }
-    }
-}
+#include "MakeMove.h"
+int row ,col , redo = 0 , ind=0 ,redo2 = 0;
+
 int maingame(int roow , int cool) {
+    int BackArr[20];
+    int line1=0 ,line2=0;
     clock_t start_time,end;
     double cpu_time_used;
     int minutes, seconds;
@@ -50,17 +37,21 @@ int maingame(int roow , int cool) {
                 }
                 else{
                 board[i][j] = ' ';}}}
-    displayboard(board,row,col);    //initial board
+    
 
     int currentPlayer=1;
     int moves=0;
     start_time = clock();
     while (moves !=roow*(cool+1)+cool*(roow+1)) {
+        displayboard(board,row,col);    //initial board
+
         cpu_time_used = ((double)(clock() - start_time)) / CLOCKS_PER_SEC;
         minutes = (int)(cpu_time_used / 60);  
         seconds = (int)(cpu_time_used) % 60;
-        printf(yellow"player 1 score : %d\t"rest blue"player 2 score : %d\n"rest ,score[1],score[2]);
-        printf(green"Time: %d:%d \n"rest, minutes, seconds);
+         printf(yellow"player 1 score : %d             "rest blue"player 2 score : %d\n"rest ,score[1],score[2]);
+        printf(green"Time: %d:%d                      "rest, minutes, seconds);
+        printf(MAG"Number of dots : %i\n"rest,2) ;
+        printf(yellow"Number of lines for P1: %i      "rest,line1);printf(blue"Number of lines for p2: %i\n"rest,line2);
         if (currentPlayer == 1)
         {
             printf(yellow"Player %d's turn:\n"rest , currentPlayer);
@@ -71,31 +62,81 @@ int maingame(int roow , int cool) {
         }
 
         int r,c;
-        printf(red"for exit (-1,-1)\n"rest);
+          printf(red"for exit (-1,-1)     "rest green"for undo (0,0)     "rest cyan"for redo (1,1)\n"rest);
         printf(white"Enter row and column to place a line: "rest);
         scanf("%d %d", &r,&c);
+        printf("\033[2J\033[1;1H");
         if (r== -1 && c== -1)
         {
             return 0 ;
         }
+        if (r==0 && c==0)
+        {
+           if (redo>=1)
+           {  
+             delet(board,BackArr,&ind);
+             check(board,row,col,score,currentPlayer);
+             if (currentPlayer==1)
+             {
+               line1--;
+             }
+             else{line2--;}
+             moves--;
+              redo2++;
+           }
+           
+        }
+       
+         if (r==1 && c==1)
+        {  
+            if (redo2>=1)
+            {
+               
+                 redo2--;
+                r = BackArr[ind];
+                c=BackArr[ind+1];
+            }
+            
+            
+        }
         
-        int movetype = valid_move(board,r,c,row,col);
+         int movetype = valid_move(board,r,c,row,col);
         if (movetype!=0) {
+            if (currentPlayer==1)
+            {
+                line1++;
+            }
+            else{line2++; }
             makemove(board,r,c,movetype,currentPlayer);
            int play_agin = comp_squer(board,currentPlayer,score,row,col);
             if (play_agin==1)
             {
                 currentPlayer=(currentPlayer==1)?2:1; // Switch to the next player
+                redo = 0;
+                redo2 =0;
             }
             else
             {
-                
+                redo++;
+                BackArr[ind]=r;
+                BackArr[ind+1]=c;
+                ind=ind+2;
+               
             }
-            displayboard(board,row,col);
+           
+            
             moves++;
             
         } else {
-            printf("Invalid move! Try again.\n");
+            if (r==0 && c==0 && redo>=1)
+            {
+                redo--; 
+            }
+            else
+            {
+                 printf(red"Invalid move! Try again.\n"rest);
+            }
+
         }
     }
     winner(score);
