@@ -1,13 +1,12 @@
 #include<stdio.h>
 #include "color.h"
+
 void winnerc (int score []){
 char winnerr[50];
 
 if (score[1]>score[2])
     {
-       printf(yellow"Player 1 is the winner with score %i \n"rest  ,score[1]);
-         printf(white"The winner name in :"white);
-         scanf("%s",&winnerr);
+      winner(score);
     }
     else if (score[1]<score[2])
     {

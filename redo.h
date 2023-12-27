@@ -1,7 +1,7 @@
 #include<stdio.h>
 
 
-void delet (char **board,int arr[],int *indx )
+void delet (char **board,int arr[],int *indx )  //delete the move
 {
   
    *indx=*indx-2;
@@ -45,18 +45,9 @@ for (int i = 1; i < row; i=i+2)
                          {
                          arr[2]--;  
                          }
-                 board[i][j]='a';
-                
+                 board[i][j]='a';    
             }
-            
-            
         }
-        
-    }
-    
+    } 
 }
-
-
-
-
 }
