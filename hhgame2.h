@@ -11,11 +11,13 @@
 #include"nextBox.h"
 #include"chain.h"
 #include"test_top.h"
+#include "save.h"
 
-int row ,col , undo = 0 , ind=0 ,redo = 0;
+int row ,col , undo = 0 , ind=0 ,redo = 0;int mode=1;
 int maingame(int roow , int cool) {
+   int saveOne= 0;
     int box1,box2,Totalline=(roow*(cool+1)+cool*(roow+1));
-    int BackArr[20];
+    int BackArr[70];
     int r,c;
     int line1=0 ,line2=0;
     clock_t start_time,end;
@@ -67,7 +69,7 @@ int maingame(int roow , int cool) {
         {
              printf(blue"Player %d's turn:\n"rest , currentPlayer);
         }
-          printf(red"for exit (-1,-1)     "rest green"for undo (0,0)     "rest cyan"for redo (1,1)\n"rest);
+          printf(red"for exit (-1,-1)     "rest green"for undo (0,0)     "rest cyan"for redo (1,1)     "rest black"for save (-2,-2)\n");
         printf(white"Enter row and column to place a line: "rest);
           ////////////////////////////////////////////////////////////////////////////////////
 
@@ -100,6 +102,16 @@ int maingame(int roow , int cool) {
                 r = BackArr[ind];
                 c=BackArr[ind+1];
             } 
+        }
+        if(r==-2 &&c==-2){
+            end= clock(); 
+            cpu_time_used = ((double)(end - start_time)) / CLOCKS_PER_SEC;
+            minutes = (int)(cpu_time_used / 60);
+            seconds = (int)(cpu_time_used) % 60;
+            savegame(board,row,col,score,currentPlayer,line1,line2,minutes,seconds,moves,mode,&saveOne);
+            printf("\033[2J\033[1;1H");
+            printf(green"game saved successefuly\n"rest);
+            
         }
          int movetype = valid_move(board,r,c,row,col);    //check if it is valid or not (if it is not it returns o)
         if (movetype!=0) {
@@ -143,8 +155,11 @@ int maingame(int roow , int cool) {
                 undo--; 
             }
             else
-            {
-                 printf(red"Invalid move! Try again.\n"rest);
+            {    if (r==-2 && c==-2)
+                {
+                }
+                else{
+                 printf(red"Invalid move! Try again.\n"rest);}
             }
 
         }

@@ -15,7 +15,7 @@ if (movetype==1)
      *p1=0;
      *p2=0;}
    }
-   else
+   else if(board[r-1][c]=='a')
    {
      if (r-1>0)
      {
@@ -29,6 +29,8 @@ if (movetype==1)
      
      
    }
+   else{*p1=0;
+     *p2=0;}
 }
 else
 {
@@ -47,7 +49,7 @@ else
      
     
    }
-   else
+   else if (board[r][c-1]=='a')
    {
      if (c-1>0)
      {
@@ -61,6 +63,8 @@ else
        *p2=0;
      }
    }
+    else{*p1=0;
+     *p2=0;}
 
 }
 

@@ -49,18 +49,18 @@ void winner(int score[]) {
         }
     }
 
-    int lowestScore = 0; // Initializing lowestScore to 0 by default
+    int lowestScore = 0; 
     if (numPlayers > 0) {
-        lowestScore = players[numPlayers - 1].score; // Setting lowestScore if numPlayers is greater than 0
+        lowestScore = players[numPlayers - 1].score; // Setting lowestScore to last one in the file if numPlayers is greater than 0
     }
 
     if (found != -1) {
-        // Update the existing player's score if the new score is higher
+        // if a player whose name already in the list and scored higher score
         if (players[found].score < score[winner_no]) {
             players[found].score = score[winner_no];
         }
     } else {
-        // Check if the leaderboard is full and a new player's score surpasses the lowest score
+        // Check if the leaderboard is full and a new player's score passes the lowest score
         if (numPlayers < 10 || score[winner_no] > lowestScore) {
             if (numPlayers >= 10) {
                 // Replace the player with the lowest score
@@ -74,7 +74,7 @@ void winner(int score[]) {
             }
         }
     }
-    // Simple sorting of the leaderboard in descending order based on score
+    // sorting of the leaderboard in descending order 
     for (int i = 0; i < numPlayers - 1; i++) {
         for (int j = i + 1; j < numPlayers; j++) {
             if (players[i].score < players[j].score) {

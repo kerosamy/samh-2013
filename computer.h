@@ -30,7 +30,9 @@ int checkcomplete_sq(char **board, int r, int c,int row,int col) { //check if th
     return 0;
 }
 int maingamec(int roow ,int cool) {
-    int BackArr[20];
+    int saveOne= 0;
+    int mode=0;
+    int BackArr[70];
     int dfsArr[row][col];
     int box1,box2 ,Totalline=(roow*(cool+1)+cool*(roow+1)); 
     int r,c,movetype;
@@ -80,7 +82,7 @@ int maingamec(int roow ,int cool) {
             printf(BMAG"Player %d's turn:\n"rest , currentPlayer);
             }}
         if(currentPlayer==1){
-        printf(red"for exit (-1,-1)     "rest green"for undo (0,0)     "rest cyan"for redo (1,1)\n"rest);
+        printf(red"for exit (-1,-1)     "rest green"for undo (0,0)     "rest cyan"for redo (1,1)"rest      black"for save (-2,-2)\n"rest);
         printf(white"Enter row and column to place a line: "rest);
         scanf("%d %d", &r,&c);
         printf("\033[2J\033[1;1H");
@@ -111,6 +113,11 @@ int maingamec(int roow ,int cool) {
                  c=BackArr[ind+1];
             }
         }
+         if(r==-2 &&c==-2){
+            savegame(board,row,col,score,currentPlayer,line1,line2,minutes,seconds,moves,mode,&saveOne);
+            printf("\033[2J\033[1;1H");
+            printf(green"game saved successefuly\n"rest);
+        }
         int movetype = valid_move(board,r,c,row,col);
         if (movetype!=0) {
             makemove(board,r,c,movetype,currentPlayer);
@@ -128,18 +135,8 @@ int maingamec(int roow ,int cool) {
                 BackArr[ind+1]=c;
                 ind=ind+2;
                 int x = 1;
-                zeroArr(col,row,dfsArr);
-                nextbox(board,movetype,r,c,&box1,&box2,row,col);
-                if (box1!=0 && box2!=0)
-                {
-                    if (DFS(board,row,col,box1,box2,dfsArr,&x))    //check if it exist a chain and complete it
-                {
-                    if (noTchain(row,col,dfsArr))
-                    {
-                         chain(board,row,col,dfsArr,currentPlayer,score,BackArr,&ind,&undo,&line1,&line2,&moves);
-                    }
-                }
-                }
+                
+                
             }
             moves++;
             line1++;
@@ -149,8 +146,12 @@ int maingamec(int roow ,int cool) {
                undo--; 
             }
             else
-            {   
-                 printf(red"Invalid move! Try again.\n"rest);
+            {    
+                if (r==-2 && c==-2)
+                {
+                }
+                else{
+                 printf(red"Invalid move! Try again.\n"rest);}
             }
         }
     }

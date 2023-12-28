@@ -2,6 +2,7 @@
 #include "color.h"
 #include"readtop10.h"
 #include"start.h"
+#include"load.h"
 
 
 int menu1(){
@@ -26,7 +27,7 @@ case 1 :
     select1();
     break;
 case 2:
-   
+    print ();
     break;
 case 3 :
     printleaderboard();
