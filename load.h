@@ -112,7 +112,11 @@ if (mode==1)
         printf(white"Enter row and column to place a line: "rest);
           ////////////////////////////////////////////////////////////////////////////////////
 
-        scanf("%d %d", &r,&c);
+         while (scanf("%d %d", &r,&c)!=2){
+            printf(red "\nNOT VALID!!.Please enter numbers.\n\n" rest);
+            while (getchar() != '\n'); 
+            continue;
+        }
         printf("\033[2J\033[1;1H");
         if (r== -1 && c== -1)
         {
@@ -240,7 +244,11 @@ else if (mode==0)
         if(currentPlayer==1){
         printf(red"for exit (-1,-1)     "rest green"for undo (0,0)     "rest cyan"for redo (1,1)"rest      black"for save (-2,-2)\n"rest);
         printf(white"Enter row and column to place a line: "rest);
-        scanf("%d %d", &r,&c);
+         while (scanf("%d %d", &r,&c)!=2){
+            printf(red "\nNOT VALID!!.Please enter numbers.\n\n" rest);
+            while (getchar() != '\n'); 
+            continue;
+        }
         printf("\033[2J\033[1;1H");
         if (r== -1 && c== -1)
         {

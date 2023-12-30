@@ -18,10 +18,11 @@ int printleaderboard(){
         fclose(file);}
          int i ;
         printf(red"enter (1) for lobby"rest);
-        scanf("%i",&i);
-       
-        
-        
+        while(scanf("%d", &i) != 1) {
+            printf(red "\nNOT VALID!!.Please enter a number.\n\n" rest);
+            while (getchar() != '\n'); 
+            continue;
+        }
             printf("\033[2J\033[1;1H");
         if (i==1)
         {

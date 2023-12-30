@@ -18,8 +18,12 @@ while (sin==1)
    printf( blue"3-Top 10 players \n\n"rest);
    printf( red"4-Exit \n\n"rest);
    printf(white"please choose :"rest);
-
-scanf("%i",&menu);
+if (scanf("%d", &menu) != 1) {
+    printf("\033[2J\033[1;1H");
+            printf(red "\nNOT VALID!!.Please enter a number.\n\n" rest);
+            while (getchar() != '\n'); 
+            continue;
+        }
 printf("\033[2J\033[1;1H");
 switch (menu)
 {

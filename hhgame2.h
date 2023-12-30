@@ -73,7 +73,11 @@ int maingame(int roow , int cool) {
         printf(white"Enter row and column to place a line: "rest);
           ////////////////////////////////////////////////////////////////////////////////////
 
-        scanf("%d %d", &r,&c);
+         while (scanf("%d %d", &r,&c)!=2){
+            printf(red "\nNOT VALID!!.Please enter numbers.\n\n" rest);
+            while (getchar() != '\n'); 
+            continue;
+        }
         printf("\033[2J\033[1;1H");
         if (r== -1 && c== -1)
         {
