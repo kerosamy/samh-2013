@@ -3,8 +3,28 @@
 #include "color.h"
 char nameof_file[50];
 int print (){
-    printf(cyan"Enter the name of your file:\n"rest)
-    scanf ("%s",nameof_file);
+    int i =0;
+    while (i!=1)
+    {
+        printf(cyan"Enter the name of your file:\n"rest);
+        printf(red"For exit enter (1):\n"rest);
+       scanf ("%s",nameof_file);
+       printf("\033[2J\033[1;1H");
+        FILE *file=fopen(nameof_file, "r");
+        if (nameof_file[0]=='1'&&nameof_file[1]=='\0')
+        {
+           return 0;
+        }
+        
+      if (file==NULL)
+       {
+         printf(red"The game does not exist\n"rest);
+       }
+       else
+       {
+        i = 1;
+       }
+    }
     FILE *file=fopen(nameof_file, "r");
     int row, col,moves;
     int score[3];
@@ -47,9 +67,9 @@ int dash = 196;int dash1 = 195;int dash2 = 197;int slash1 = 123;int slash2 = 125
         }else if (board[i][j] == -59) {
              board2[i][j]=dash2;
         }else if (board[i][j] == 125) {
-             board2[i][j]=slash1;
-        }else if (board[i][j] == 123) {
              board2[i][j]=slash2;
+        }else if (board[i][j] == 123) {
+             board2[i][j]=slash1;
         }else if (board[i][j] == 32) {
              board2[i][j]=' ';
         }
@@ -96,6 +116,11 @@ if (mode==1)
         printf("\033[2J\033[1;1H");
         if (r== -1 && c== -1)
         {
+             for (int i = 0; i < row; i++)    //free the board
+           {
+            free(board2[i]);
+           }
+           free(board2);
             return 0 ;    //exit 
         }
         if (r==0 && c==0)
@@ -155,7 +180,7 @@ if (mode==1)
                 {
                     if (DFS(board2,row,col,box1,box2,dfsArr,&x))    //check if it exist a chain and complete it
                 {
-                    if (noTchain(row,col,dfsArr))
+                    if (noTchain(row,col,dfsArr,board2))
                     {
                          chain(board2,row,col,dfsArr,currentPlayer,score,BackArr,&ind,&undo,&line1,&line2,&moves);
                     }
@@ -178,21 +203,23 @@ if (mode==1)
 
         }
     }
- winner(score);    //calculate the score 
+    displayboard(board2,row,col);
+ 
     cpu_time_used = ((double)(clock() - start_time)) / CLOCKS_PER_SEC;   //calculate the time at this instant
      int total_seconds= cpu_time_used + total_saved_seconds;
         minutes = (int)(total_seconds / 60);  
         seconds = (int)(total_seconds) % 60;
-    printf(green"Total time taken: %d minutes %d seconds\n"rest, minutes, seconds);
+        winner(score,minutes,seconds,row/2,col/2,1);    //calculate the score 
  for (int i = 0; i < row; i++)    //free the board
     {
-        free(board[i]);
+        free(board2[i]);
     }
-    free(board);
+    free(board2);
+  ask(row/2,col/2,1);
 }
 else if (mode==0)
 {
-    int moves=0; int NoPrint=0;
+         int NoPrint=0;
     start_time = clock(); 
     while (moves!=(row/2)*((col/2)+1)+(col/2)*((row/2)+1)) {
         int movetype;
@@ -217,6 +244,11 @@ else if (mode==0)
         printf("\033[2J\033[1;1H");
         if (r== -1 && c== -1)
         {
+            for (int i = 0; i < row; i++)    //free the board
+           {
+            free(board2[i]);
+           }
+           free(board2);
             return 0 ;
         }
          if (r==0 && c==0)
@@ -261,19 +293,6 @@ else if (mode==0)
                 BackArr[ind]=r;
                 BackArr[ind+1]=c;
                 ind=ind+2;
-                int x = 1;
-                zeroArr(col,row,dfsArr);
-                nextbox(board2,movetype,r,c,&box1,&box2,row,col);
-                if (box1!=0 && box2!=0)
-                {
-                    if (DFS(board2,row,col,box1,box2,dfsArr,&x))    //check if it exist a chain and complete it
-                {
-                    if (noTchain(row,col,dfsArr))
-                    {
-                         chain(board2,row,col,dfsArr,currentPlayer,score,BackArr,&ind,&undo,&line1,&line2,&moves);
-                    }
-                }
-                }
             }
             moves++;
             line1++;
@@ -319,16 +338,17 @@ else if (mode==0)
             }  
         }
         } }}
-winnerc(score);
+displayboard(board2,row,col);
 cpu_time_used = ((double)(clock() - start_time)) / CLOCKS_PER_SEC;   //calculate the time at this instant
 int total_seconds= cpu_time_used + total_saved_seconds;
 minutes = (int)(total_seconds / 60);  
 seconds = (int)(total_seconds) % 60;
-printf(green"Total time taken: %d minutes %d seconds\n"rest, minutes, seconds);
+winnerc(score,minutes,seconds,row/2,col/2);
  for (int i = 0; i < row; i++)    //free the board
     {
-        free(board[i]);
+        free(board2[i]);
     }
-    free(board);
+    free(board2);
+    ask(row/2,col/2,2)  ;
 }}
 

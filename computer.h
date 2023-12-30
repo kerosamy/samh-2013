@@ -88,6 +88,11 @@ int maingamec(int roow ,int cool) {
         printf("\033[2J\033[1;1H");
         if (r== -1 && c== -1)
         {
+             for (int i = 0; i < row; i++)    //free the board
+           {
+            free(board[i]);
+           }
+           free(board);    
             return 0 ;
         }
          if (r==0 && c==0)
@@ -134,7 +139,6 @@ int maingamec(int roow ,int cool) {
                 BackArr[ind]=r;
                 BackArr[ind+1]=c;
                 ind=ind+2;
-                int x = 1;
                 
                 
             }
@@ -183,13 +187,13 @@ int maingamec(int roow ,int cool) {
             }  
         }
         } }}
- winnerc(score);   //calculate the score and check the winner 
+    displayboard(board,row,col);
     cpu_time_used = ((double)(clock() - start_time)) / CLOCKS_PER_SEC;
     minutes = (int)(cpu_time_used / 60);
     seconds = (int)(cpu_time_used) % 60;
-    printf(green"Total time taken: %d minutes %d seconds\n"rest, minutes, seconds);
+    winnerc(score,minutes,seconds,roow,cool);   //calculate the score and check the winner 
     for (int i = 0; i < row; i++) {
         free(board[i]);
     }
     free(board);
-    return 0;}
+    return 1;}

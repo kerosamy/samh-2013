@@ -7,7 +7,8 @@ struct Player {
     int score;
 };
 
-void winner(int score[]) {
+
+int winner(int score[],int minutes,int seconds,int row,int col,int mode) {
     char winnerName[50];
     struct Player players[10] = { {"", 0} };
     int numPlayers = 0;
@@ -15,7 +16,7 @@ void winner(int score[]) {
     FILE *file = fopen("top10.txt", "r");
     if (file != NULL) {
         for (int i = 0; i < 10; i++) {
-            if (fscanf(file, "%49s %d", players[i].name, &players[i].score) != 2) {
+            if (fscanf(file, "%s %d", players[i].name, &players[i].score) != 2) {
                 players[i].name[0] = '\0';
                 players[i].score = 0;
             } else {
@@ -27,20 +28,37 @@ void winner(int score[]) {
 
     int winner_no;
     if (score[1] > score[2]) {
-        printf(yellow "Player 1 is the winner with score %i\n" rest, score[1]);
-        printf(white "The winner name: " white);
-        scanf("%49s", winnerName);
+        printf(BMAG "Player 1 is the winner with score %i\n" rest, score[1]);
+         printf(green"Total time taken: %d minutes %d seconds\n"rest, minutes, seconds);
+        printf(white "The winner name: " rest);
+        scanf("%s",& winnerName);
+        printf("\033[2J\033[1;1H");
+
         winner_no = 1;
     } else if (score[1] < score[2]) {
         printf(blue "Player 2 is the winner with score %i\n" rest, score[2]);
-        printf(white "The winner name: " white);
-        scanf("%49s", winnerName);
+         printf(green"Total time taken: %d minutes %d seconds\n"rest, minutes, seconds);
+        printf(white "The winner name: " rest);
+        scanf("%s", &winnerName);
+        printf("\033[2J\033[1;1H");
+
+
         winner_no = 2;
     } else {
-        printf("The game is a draw\n");
-        return;
-    }
+        int i ;
+        while (i!=1)
+        {
+           printf(white"The game is a draw\n"rest);
+          printf(green"Total time taken: %d minutes %d seconds\n"rest, minutes, seconds);
+           printf(red"for exit enter (1)"rest);
+           scanf("%i",&i);
+            printf("\033[2J\033[1;1H");
+        }
+        
+       
 
+        return 0;
+    }
     int found = -1;
     for (int i = 0; i < numPlayers; i++) {
         if (strcmp(players[i].name, winnerName) == 0) {

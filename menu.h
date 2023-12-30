@@ -28,8 +28,12 @@ case 1 :
     break;
 case 2:
     print ();
+   
+   
+    
     break;
 case 3 :
+    printf(red"\t\t\t\t\tTOP 10 PLAYERS\n\n"rest);
     printleaderboard();
     break;
 case 4 :

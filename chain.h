@@ -1,12 +1,18 @@
 #include<stdio.h>
-int noTchain (int row,int col , int arr[row][col]){
-    for (int i = 1; i < row-1; i=i+2)
+int noTchain (int row,int col , int arr[row][col],char **board){
+    for (int i = 1; i < row-2; i=i+2)
     {
-        for (int j =1; j < col-1; j=j+2)
+        for (int j =1; j < col-2; j=j+2)
         {
             if (arr[i][j]+arr[i][j+2]+arr[i+2][j]+arr[i+2][j+2]==4)
             {
-               return 0 ;
+               int x=i+1;
+               int y=j+1;
+               if (board[x-1][y]==' '&&board[x][y-1]==' '&&board[x+1][y]==' '&&board[x][y+1]==' ')
+               {
+                  return 0 ;
+               }
+               
             }
             
         }

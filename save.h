@@ -4,11 +4,9 @@
 char nameof_file[50];
 
 void savegame( char** board, int row, int col, int* score, int currentPlayer,int line1,int line2,int minutes,int seconds,int moves,int mode,int *p) {
-    if(*p==0){
+    
             printf(BMAG"Enter a name for file save!\n"rest);
             scanf ("%s",&nameof_file);
-            *p=*p+1;
-            } 
     FILE* file ;
     file= fopen(nameof_file, "w");
     if (file == NULL) {

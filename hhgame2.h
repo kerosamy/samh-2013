@@ -77,6 +77,11 @@ int maingame(int roow , int cool) {
         printf("\033[2J\033[1;1H");
         if (r== -1 && c== -1)
         {
+             for (int i = 0; i < row; i++)    //free the board
+           {
+            free(board[i]);
+           }
+           free(board);
             return 0 ;    //exit 
         }
         if (r==0 && c==0)
@@ -141,7 +146,8 @@ int maingame(int roow , int cool) {
                 {
                     if (DFS(board,row,col,box1,box2,dfsArr,&x))    //check if it exist a chain and complete it
                 {
-                    if (noTchain(row,col,dfsArr))
+                   
+                    if (noTchain(row,col,dfsArr,board))
                     {
                          chain(board,row,col,dfsArr,currentPlayer,score,BackArr,&ind,&undo,&line1,&line2,&moves);
                     }
@@ -164,17 +170,18 @@ int maingame(int roow , int cool) {
 
         }
     }
-    winner(score);    //calculate the score 
+    displayboard(board,row,col);
     cpu_time_used = ((double)(clock() - start_time)) / CLOCKS_PER_SEC;   //calculate the time at this instant
     minutes = (int)(cpu_time_used / 60);
     seconds = (int)(cpu_time_used) % 60;
-    printf(green"Total time taken: %d minutes %d seconds\n"rest, minutes, seconds);
+    winner(score,minutes,seconds,roow,cool,1);    //calculate the score 
+    
     for (int i = 0; i < row; i++)    //free the board
     {
         free(board[i]);
     }
     free(board);
-    return 0;
+    return 1;
 }
 
 

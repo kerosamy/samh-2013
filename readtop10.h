@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include "color.h"
 int printleaderboard(){
     
     
@@ -6,9 +7,14 @@ int printleaderboard(){
     file = fopen("top10.txt", "r");
     if (file != NULL) {
         
-        char c;
-        while ((c=fgetc(file)) != EOF)
-        putchar(c);
+        char c[100];
+        int nofline=1;
+        while (fgets(c, sizeof(c), file) != NULL){
+             printf(green"%d.%s"rest,nofline,c);
+             printf("\n");
+             nofline++;
+        }
+       
         fclose(file);}
          int i ;
         printf(red"enter (1) for lobby"rest);

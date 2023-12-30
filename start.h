@@ -2,6 +2,48 @@
 #include "hhgame2.h"
 #include"computer.h"
 #include "color.h"
+int ask(int row,int col,int mode){
+
+    int i ;
+    printf(green"1-Play again\n\n"rest);
+    printf(blue"2-lead board\n\n"rest);
+    printf(red"3-return lobby\n\n"rest);
+    printf(yellow"please select :"rest);
+    scanf("%i",&i);
+    printf("\033[2J\033[1;1H");
+    switch (i)
+    {
+    case 1:
+       if (mode==1)
+       {
+       if (maingame(row,col))
+        {
+         ask(row,col,1);
+        }
+       }
+       if (mode==2)
+       {
+        if (maingamec(row,col))
+        {
+         ask(row,col,2);
+        }
+        
+       }
+        break;
+    case 2:
+         printf(red"\t\t\t\t\tTOP 10 PLAYERS\n\n"rest);
+         printleaderboard();
+        break;
+    case 3:
+        
+        break;
+    default:
+        printf(red"We cant understand please try again!"rest);
+        ask(row,col,mode);
+        break;
+    }
+    }
+
 
 int s ;
 int select2(int c1,int c2){
@@ -16,10 +58,20 @@ printf("\033[2J\033[1;1H");
 switch (j)
 {
 case 1:
-   maingame(c1,c2);
+if ( maingame(c1,c2))
+{
+   ask(c1,c2,1);
+}
+
+  
+   
    break;
 case 2:
-   maingamec(c1,c2);
+   if (maingamec(c1,c2))
+   { 
+      ask(c1,c2,2);
+   }
+   
    break;
 
 
