@@ -1,25 +1,5 @@
 #include<stdio.h>
-int noTchain (int row,int col , int arr[row][col],char **board){
-    for (int i = 1; i < row-2; i=i+2)
-    {
-        for (int j =1; j < col-2; j=j+2)
-        {
-            if (arr[i][j]+arr[i][j+2]+arr[i+2][j]+arr[i+2][j+2]==4)
-            {
-               int x=i+1;
-               int y=j+1;
-               if (board[x-1][y]==' '&&board[x][y-1]==' '&&board[x+1][y]==' '&&board[x][y+1]==' ')
-               {
-                  return 0 ;
-               }
-               
-            }
-            
-        }
-        
-    }
- return 1;   
-}
+
 void chain (char **board , int row ,int col , int arr[row][col],int player,int score[],int backarr[],int *inx,int *undo,int *m1,int *m2,int*moves){
 int shifts[4][2] = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
 int dash = 196;int dash1 = 195;int dash2 = 197;int slash1 = 123;int slash2 = 125;
@@ -52,14 +32,10 @@ if (player==1)
                      *moves=*moves+1;
                }
             }
-             
-
             board[i][j]='c';
             score[1]++;
         }
-        
     }
-    
 }
 }
 else
@@ -92,10 +68,8 @@ else
             }
             board[i][j]='k';
             score[2]++;
-        }
-        
-    }
-    
+        }    
+    }   
 }
 }
 }

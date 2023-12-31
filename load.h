@@ -182,12 +182,9 @@ if (mode==1)
                 nextbox(board2,movetype,r,c,&box1,&box2,row,col);
                 if (box1!=0 && box2!=0)
                 {
-                    if (DFS(board2,row,col,box1,box2,dfsArr,&x))    //check if it exist a chain and complete it
+                    if (DFS(board2,row,col,box1,box2,dfsArr,&x,0))    //check if it exist a chain and complete it
                 {
-                    if (noTchain(row,col,dfsArr,board2))
-                    {
                          chain(board2,row,col,dfsArr,currentPlayer,score,BackArr,&ind,&undo,&line1,&line2,&moves);
-                    }
                 }
                 }
             }

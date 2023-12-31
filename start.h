@@ -54,7 +54,11 @@ printf(yellow"please select the mode <3\n\n"rest);
 printf(green"1-human Vs human \n\n"rest blue"2-human Vs computer\n\n"rest  red"3-return to lobby\n\n"rest);
 printf(white"your mode will be :"rest);
 while(scanf("%d", &j) != 1) {
+            printf("\033[2J\033[1;1H");
             printf(red "\nNOT VALID!!.Please enter a number.\n\n" rest);
+            printf(yellow"please select the mode <3\n\n"rest);
+            printf(green"1-human Vs human \n\n"rest blue"2-human Vs computer\n\n"rest  red"3-return to lobby\n\n"rest);
+            printf(white"your mode will be :"rest);
             while (getchar() != '\n'); 
             continue;
         }
@@ -98,7 +102,10 @@ int k1,k2;
 printf(yellow"please select the level <3\n\n"rest);
 printf(green"1-beginner 2x2 \n\n"rest blue"2-expert 5x5\n\n"rest cyan"3-custom game\n\n"rest red"4-return to lobby\n\n"rest white"your game will be :"rest );
 while(scanf("%d", &i) != 1) {
+            printf("\033[2J\033[1;1H");
             printf(red "\nNOT VALID!!.Please enter a number.\n\n" rest);
+            printf(yellow"please select the level <3\n\n"rest);
+            printf(green"1-beginner 2x2 \n\n"rest blue"2-expert 5x5\n\n"rest cyan"3-custom game\n\n"rest red"4-return to lobby\n\n"rest white"your game will be :"rest );
             while (getchar() != '\n'); 
             continue;
         }
@@ -115,7 +122,6 @@ case 2 :
    select2(k1,k2);
    break;
 case 3 :
-   
    printf(white"please enter number of rows and column :"rest);
     while (scanf("%d %d", &k1,&k2)!=2){
             printf(red "\nNOT VALID!!.Please enter numbers.\n\n" rest);
@@ -128,8 +134,7 @@ break;
 case 4:
      return 0 ;
      break;
-default:
-  
+default: 
   printf(red"sorry we can not understand you please try agin"rest);
   select1();
    break;

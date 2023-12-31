@@ -9,12 +9,12 @@ for (int i = 0; i < row; i++)
    }
 }
 }
-int DFS (char **board,int row ,int col,int boxnumber1,int boxnumber2,int arr[row][col],int *x){
+int DFS (char **board,int row ,int col,int boxnumber1,int boxnumber2,int arr[row][col],int *x,int no){
  int shifts[4][2] = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};  
 if (arr[boxnumber1][boxnumber2]==1)
 {
    
-    return (*x&1) ;
+    return (*x&0) ;
 }
  if (boxnumber1>=row||boxnumber2>=col||boxnumber1<0||boxnumber2<0)
 {
@@ -27,40 +27,32 @@ arr[boxnumber1][boxnumber2]=1;
                     
                  if (shift==0)
                  {
-                    if (arr[boxnumber1][boxnumber2+2]==0)
-                    {
+                    if (no!=1){
                       if(!*x){return 0 ;}
-                      
-                      *x=*x&DFS(board,row,col,boxnumber1,boxnumber2+2,arr,x);
-                    }
-                    
-                 }
-                 else if (shift==1)
-                 {
-                     if (arr[boxnumber1+2][boxnumber2]==0)
-                    {
-                       if(!*x){return 0 ;}
-                     *x=*x&DFS(board,row,col,boxnumber1+2,boxnumber2,arr,x);
+                      *x=*x&DFS(board,row,col,boxnumber1,boxnumber2+2,arr,x,3);
                     }
                  }
-                 else if (shift==2)
+                  if (shift==1)
                  {
-                     if (arr[boxnumber1][boxnumber2-2]==0)
-                    {
+                     if (no!=2){
                        if(!*x){return 0 ;}
-                     *x=*x&DFS(board,row,col,boxnumber1,boxnumber2-2,arr,x);
-                    }
-                 }
-                 else if (shift==3)
-                 {
-                    if (arr[boxnumber1-2][boxnumber2]==0)
-                    {
+                     *x=*x&DFS(board,row,col,boxnumber1+2,boxnumber2,arr,x,4);
+                 }}
+                  if (shift==2)
+                 {  
+                     if (no!=3){
                        if(!*x){return 0 ;}
-                     *x=*x&DFS(board,row,col,boxnumber1-2,boxnumber2,arr,x);
-                    }
+                     *x=*x&DFS(board,row,col,boxnumber1,boxnumber2-2,arr,x,1);
+                 }}
+                  if (shift==3)
+                 { 
+                    if (no!=4){
+                       if(!*x){return 0 ;}
+                     *x=*x&DFS(board,row,col,boxnumber1-2,boxnumber2,arr,x,2);
+
                  }
                }
              }
- return *x ;
-}   
-}
+} 
+return *x&1 ;  
+}}
