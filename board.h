@@ -11,7 +11,7 @@ void displayboard(char **board,int row ,int col){   //display the board
         }
         else
         {
-            printf(black"%d "rest,i);
+            printf(black"%d "rest,i%10);
         }
     }
     printf("\n");
